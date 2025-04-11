@@ -1,5 +1,7 @@
 # json-unstringify
 
+![json-unstringify](https://github.com/user-attachments/assets/fea96de9-f898-4cf0-bf92-09919d97ae00)
+
 ## Chrome Extension. Beautifies selected nested JSON by expanding it into readable objects
 
 Adds two functions to the context menu:
