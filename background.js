@@ -1,13 +1,13 @@
 chrome.runtime.onInstalled.addListener(() => {
     chrome.contextMenus.create({
         id: "unstringify-selected",
-        title: "Unstringify block",
+        title: "This block",
         contexts: ["all"]
     });
 
     chrome.contextMenus.create({
         id: "unstringify-same-class",
-        title: "Unstringify same class blocks",
+        title: "All similar blocks",
         contexts: ["all"]
     });
 });
