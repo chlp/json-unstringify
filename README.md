@@ -1,5 +1,8 @@
 # json-unstringify
 
+![json-unstringify-128](https://github.com/user-attachments/assets/7b3076d6-58e0-47bf-9358-5a909db482fb)
+
+
 ## Chrome Extension. Beautifies selected nested JSON by expanding it into readable objects
 
 Adds two functions to the context menu:
@@ -41,3 +44,16 @@ After running json-unstringify:
   "requestTraceID": "456defab-6789-0123-bcde-abcdef123456"
 }
 ```
+
+---
+
+Screenshots
+
+1. Initial data
+  ![json-unstringify-1](https://github.com/user-attachments/assets/f486f393-7a7e-4595-b29a-0feee02ccc4f)
+3. Context menu
+  ![json-unstringify-2](https://github.com/user-attachments/assets/cbadf6b3-470d-4bef-a2c3-e5a58b937233)
+4. Unstringify block
+  ![json-unstringify-3](https://github.com/user-attachments/assets/516d0398-e26f-4929-a06e-65b0166c2af8)
+5. Unstringify same class blocks
+  ![json-unstringify-4](https://github.com/user-attachments/assets/1151042e-3f52-4234-be5d-8c197adb562f)
