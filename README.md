@@ -2,6 +2,7 @@
 
 ![json-unstringify-128](https://github.com/user-attachments/assets/7b3076d6-58e0-47bf-9358-5a909db482fb)
 
+https://chromewebstore.google.com/detail/json-unstringify/moielkikijfjcdgnljgahghekhnbhmno
 
 ## Chrome Extension. Beautifies selected nested JSON by expanding it into readable objects
 
