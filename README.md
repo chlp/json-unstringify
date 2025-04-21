@@ -58,3 +58,7 @@ Screenshots
   ![json-unstringify-3](https://github.com/user-attachments/assets/516d0398-e26f-4929-a06e-65b0166c2af8)
 5. Unstringify same class blocks
   ![json-unstringify-4](https://github.com/user-attachments/assets/1151042e-3f52-4234-be5d-8c197adb562f)
+
+---
+
+Build for Safari: `xcrun safari-web-extension-converter ./json-unstringify --project-location json-unstringify-apple --bundle-identifier com.example.json-unstringify-apple --app-name json-unstringify-apple --macos-only`
