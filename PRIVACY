@@ -1,0 +1,28 @@
+Privacy Policy for JSON Unstringify
+
+Last updated: April 21, 2025
+
+JSON Unstringify is a Safari Web Extension designed to help users improve the readability of deeply nested JSON blocks on web pages. This extension runs entirely in your browser and does not collect, store, or transmit any personal information or data.
+
+1. Data Collection
+
+We do not collect or store:
+* Personal data (e.g. name, email, IP address)
+* Browsing history
+* Web content or network activity
+
+2. Permissions
+
+The extension operates only on pages where it is explicitly activated by the user. It does not run in the background, and does not communicate with any external servers.
+
+3. Third Parties
+
+This extension does not use any third-party analytics, tracking, or advertising services.
+
+4. Local Processing
+
+All processing (beautification of JSON) is done locally in your browser. No data ever leaves your machine.
+
+5. Contact
+
+If you have any questions or concerns, feel free to contact the developer via the GitHub repository.
