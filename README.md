@@ -2,9 +2,15 @@
 
 ![json-unstringify-128](https://github.com/user-attachments/assets/7b3076d6-58e0-47bf-9358-5a909db482fb)
 
-https://chromewebstore.google.com/detail/json-unstringify/moielkikijfjcdgnljgahghekhnbhmno
+## Chrome/Safari Extension — Beautifies selected nested JSON by expanding it into readable objects
 
-## Chrome Extension. Beautifies selected nested JSON by expanding it into readable objects
+### Install
+
+- [Available on Chrome Web Store](https://chromewebstore.google.com/detail/json-unstringify/moielkikijfjcdgnljgahghekhnbhmno)
+- [Available on Mac App Store (Safari)](https://apps.apple.com/us/app/json-unstringify/id6744895509)
+
+
+### Features
 
 Adds two functions to the context menu:
 1. "Unstringify block" — finds a JSON string (possibly nested) in the block you right-clicked and expands it into a readable object.
