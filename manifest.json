@@ -2,16 +2,10 @@
   "manifest_version": 3,
   "name": "JSON Unstringify",
   "homepage_url": "https://github.com/chlp/json-unstringify",
-  "version": "0.2",
+  "version": "0.3",
   "description": "Beautifies selected nested JSON by expanding it into readable objects",
-  "permissions": [
-    "contextMenus",
-    "activeTab",
-    "scripting"
-  ],
-  "host_permissions": [
-    "<all_urls>"
-  ],
+  "permissions": ["contextMenus", "activeTab", "scripting"],
+  "host_permissions": ["<all_urls>"],
   "background": {
     "service_worker": "background.js"
   },
@@ -27,5 +21,19 @@
       "128": "icons/icon-128.png"
     },
     "default_title": "JSON Unstringify"
+  },
+  "commands": {
+    "unstringify-selected": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+F"
+      },
+      "description": "Unstringify selected block"
+    },
+    "unstringify-same-class": {
+      "suggested_key": {
+        "default": "Ctrl+F"
+      },
+      "description": "Unstringify same class blocks"
+    }
   }
 }
