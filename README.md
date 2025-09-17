@@ -68,3 +68,9 @@ Screenshots
 ---
 
 Build for Safari: `xcrun safari-web-extension-converter ./json-unstringify --project-location json-unstringify-apple --bundle-identifier com.chlp.json-unstringify-apple --app-name json-unstringify-apple --macos-only`
+
+---
+
+## Acknowledgements
+
+Special thanks to [@gerins](https://github.com/gerins) for help and contributions to this project.
