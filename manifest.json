@@ -29,13 +29,15 @@
   "commands": {
     "unstringify-selected": {
       "suggested_key": {
-        "default": "Ctrl+Shift+F"
+        "default": "Ctrl+U",
+        "mac": "Command+U"
       },
       "description": "Unstringify selected block"
     },
     "unstringify-same-class": {
       "suggested_key": {
-        "default": "Ctrl+F"
+        "default": "Ctrl+Shift+U",
+        "mac": "Command+Shift+U"
       },
       "description": "Unstringify same class blocks"
     }
