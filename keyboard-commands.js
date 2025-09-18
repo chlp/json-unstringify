@@ -28,8 +28,13 @@ function handleKeyboardCommand(command) {
       
       chrome.scripting.executeScript({
         target: { tabId: tabs[0].id },
-        func: self.decodeBlocks,
-        args: [mode],
+        files: ['content-script.js'],
+      }).then(() => {
+        chrome.scripting.executeScript({
+          target: { tabId: tabs[0].id },
+          func: (mode) => self.decodeBlocks(mode),
+          args: [mode],
+        });
       }).catch((error) => {
         console.error("Failed to execute script:", error);
       });

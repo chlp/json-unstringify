@@ -1,5 +1,6 @@
 /**
- * JSON decoding utilities for unstringifying nested JSON
+ * Content script for JSON Unstringify extension
+ * This file contains the code that runs on web pages
  */
 
 /**
@@ -84,5 +85,5 @@ function decodeBlocks(mode) {
   }
 }
 
-// Export for use in other modules
-export { tryDecode, decodeNestedJSON, decodeBlocks };
+// Make functions available globally for chrome.scripting.executeScript
+self.decodeBlocks = decodeBlocks;

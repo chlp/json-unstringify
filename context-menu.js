@@ -63,8 +63,13 @@ function handleContextMenuClick(info, tab) {
   if (mode) {
     chrome.scripting.executeScript({
       target: { tabId: tab.id },
-      func: self.decodeBlocks,
-      args: [mode],
+      files: ['content-script.js'],
+    }).then(() => {
+      chrome.scripting.executeScript({
+        target: { tabId: tab.id },
+        func: (mode) => self.decodeBlocks(mode),
+        args: [mode],
+      });
     }).catch((error) => {
       console.error("Failed to execute script:", error);
     });
