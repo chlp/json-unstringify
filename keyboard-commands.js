@@ -3,7 +3,6 @@
  */
 
 import { isUrlAllowedForScripting } from './url-validator.js';
-import { decodeBlocks } from './json-decoder.js';
 
 /**
  * Handle keyboard command events
@@ -29,7 +28,7 @@ function handleKeyboardCommand(command) {
       
       chrome.scripting.executeScript({
         target: { tabId: tabs[0].id },
-        func: decodeBlocks,
+        func: self.decodeBlocks,
         args: [mode],
       }).catch((error) => {
         console.error("Failed to execute script:", error);

@@ -3,7 +3,6 @@
  */
 
 import { isUrlAllowedForScripting } from './url-validator.js';
-import { decodeBlocks } from './json-decoder.js';
 
 /**
  * Initialize context menu items
@@ -64,7 +63,7 @@ function handleContextMenuClick(info, tab) {
   if (mode) {
     chrome.scripting.executeScript({
       target: { tabId: tab.id },
-      func: decodeBlocks,
+      func: self.decodeBlocks,
       args: [mode],
     }).catch((error) => {
       console.error("Failed to execute script:", error);
