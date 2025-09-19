@@ -4,17 +4,64 @@
  */
 
 /**
- * Try to decode a text string as JSON
- * @param {string} text - The text to decode
- * @returns {Object|Array|null} - Decoded object or null if failed
+ * Process text and return formatted result
+ * @param {string} text - The text to process
+ * @returns {string} - Formatted text result
  */
-function tryDecode(text) {
+function processText(text) {
   try {
-    return decodeNestedJSON(text);
+    const decoded = decodeNestedJSON(text);
+    return stringifyCompact(decoded);
   } catch (e) {
-    console.error("tryDecode error:", e);
-    return null;
+    console.error("processText error:", e);
+    return text; // Return original text if processing fails
   }
+}
+
+/**
+ * Compact stringify with smart formatting
+ * @param {any} value - The value to stringify
+ * @param {number} space - Number of spaces for indentation
+ * @param {number} level - Current nesting level
+ * @returns {string} - Formatted JSON string
+ */
+function stringifyCompact(value, space = 2, level = 0) {
+  const indent = ' '.repeat(level * space);
+
+  // Array?
+  if (Array.isArray(value)) {
+    // All elements are primitives?
+    const allPrimitives = value.every(v =>
+      v === null ||
+      typeof v === "string" ||
+      typeof v === "number" ||
+      typeof v === "boolean"
+    );
+    if (allPrimitives) {
+      return JSON.stringify(value); // Single line
+    } else {
+      // Nested format
+      const items = value.map(v =>
+        stringifyCompact(v, space, level + 1)
+      );
+      return "[\n" + items.map(i => indent + " ".repeat(space) + i).join(",\n")
+             + "\n" + indent + "]";
+    }
+  }
+
+  // Object?
+  if (value && typeof value === "object") {
+    const entries = Object.entries(value).map(
+      ([k, v]) =>
+        JSON.stringify(k) + ": " +
+        stringifyCompact(v, space, level + 1)
+    );
+    return "{\n" + entries.map(e => indent + " ".repeat(space) + e).join(",\n")
+           + "\n" + indent + "}";
+  }
+
+  // Primitive
+  return JSON.stringify(value);
 }
 
 /**
@@ -64,25 +111,19 @@ function decodeBlocks(mode) {
   const node = selected.anchorNode?.parentElement;
   if (!node) return;
 
+  let elements = [];
   if (mode === "selected") {
-    const decoded = tryDecode(node.innerText);
-    if (decoded) {
-      node.innerText = JSON.stringify(decoded, null, 2);
-      node.style.overflow = "visible";
-    }
+    elements.push(node);
   } else if (mode === "same-class") {
     const className = node.className;
     if (!className) return;
-
-    const elements = document.querySelectorAll(`.${className}`);
-    elements.forEach((el) => {
-      const decoded = tryDecode(el.innerText);
-      if (decoded) {
-        el.innerText = JSON.stringify(decoded, null, 2);
-        el.style.overflow = "visible";
-      }
-    });
+    elements = document.querySelectorAll(`.${className}`);
   }
+
+  elements.forEach((el) => {
+    el.innerText = processText(el.innerText);
+    el.style.overflow = "visible";
+  });
 }
 
 // Make functions available globally for chrome.scripting.executeScript
