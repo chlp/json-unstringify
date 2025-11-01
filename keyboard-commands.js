@@ -2,42 +2,18 @@
  * Keyboard commands handling utilities
  */
 
-import { isUrlAllowedForScripting } from './url-validator.js';
+import { executeDecodeBlocksIfAllowed, getModeFromId } from './script-executor.js';
 
 /**
  * Handle keyboard command events
  * @param {string} command - The command that was triggered
  */
 function handleKeyboardCommand(command) {
-  let mode = "";
-  if (command === "unstringify-selected") {
-    mode = "selected";
-  } else if (command === "unstringify-same-class") {
-    mode = "same-class";
-  }
-
+  const mode = getModeFromId(command);
   if (mode) {
     chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
       if (!tabs.length) return;
-      
-      // Check if the tab URL is allowed for scripting
-      if (!isUrlAllowedForScripting(tabs[0].url)) {
-        console.warn("Cannot script this URL:", tabs[0].url);
-        return;
-      }
-      
-      chrome.scripting.executeScript({
-        target: { tabId: tabs[0].id },
-        files: ['content-script.js'],
-      }).then(() => {
-        chrome.scripting.executeScript({
-          target: { tabId: tabs[0].id },
-          func: (mode) => self.decodeBlocks(mode),
-          args: [mode],
-        });
-      }).catch((error) => {
-        console.error("Failed to execute script:", error);
-      });
+      executeDecodeBlocksIfAllowed(tabs[0].id, tabs[0].url, mode);
     });
   }
 }

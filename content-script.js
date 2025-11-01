@@ -116,8 +116,19 @@ function decodeBlocks(mode) {
     elements.push(node);
   } else if (mode === "same-class") {
     const className = node.className;
-    if (!className) return;
-    elements = document.querySelectorAll(`.${className}`);
+    if (!className || typeof className !== 'string') return;
+    // Split by spaces to handle multiple classes, and escape special characters
+    const classes = className.trim().split(/\s+/).filter(cls => cls.length > 0);
+    if (classes.length === 0) return;
+    // Build a safe selector by escaping each class name and combining them
+    // (multiple classes without spaces means elements must have all of them)
+    const selector = classes.map(cls => {
+      // CSS.escape is not available in all contexts, so use a simple escape
+      // that handles most cases (escaping special CSS characters)
+      const escaped = cls.replace(/([!"#$%&'()*+,.\/:;<=>?@[\\\]^`{|}~])/g, '\\$1');
+      return `.${escaped}`;
+    }).join('');
+    elements = document.querySelectorAll(selector);
   }
 
   elements.forEach((el) => {

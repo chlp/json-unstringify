@@ -11,7 +11,7 @@ function isUrlAllowedForScripting(url) {
   try {
     const urlObj = new URL(url);
     
-    // Block Chrome extension pages
+    // Block extension pages
     if (urlObj.protocol === 'chrome-extension:' || 
         urlObj.protocol === 'moz-extension:' ||
         urlObj.protocol === 'safari-extension:') {
@@ -30,8 +30,7 @@ function isUrlAllowedForScripting(url) {
     // Block special Chrome pages
     if (urlObj.protocol === 'chrome:' ||
         urlObj.protocol === 'chrome-search:' ||
-        urlObj.protocol === 'chrome-devtools:' ||
-        urlObj.protocol === 'chrome-extension:') {
+        urlObj.protocol === 'chrome-devtools:') {
       return false;
     }
     

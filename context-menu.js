@@ -3,6 +3,7 @@
  */
 
 import { isUrlAllowedForScripting } from './url-validator.js';
+import { executeDecodeBlocksIfAllowed, getModeFromId } from './script-executor.js';
 
 /**
  * Initialize context menu items
@@ -47,32 +48,9 @@ function updateContextMenuVisibility(tabId) {
  * @param {Object} tab - Tab object
  */
 function handleContextMenuClick(info, tab) {
-  // Check if the tab URL is allowed for scripting
-  if (!isUrlAllowedForScripting(tab.url)) {
-    console.warn("Cannot script this URL:", tab.url);
-    return;
-  }
-
-  let mode = "";
-  if (info.menuItemId === "unstringify-selected") {
-    mode = "selected";
-  } else if (info.menuItemId === "unstringify-same-class") {
-    mode = "same-class";
-  }
-
+  const mode = getModeFromId(info.menuItemId);
   if (mode) {
-    chrome.scripting.executeScript({
-      target: { tabId: tab.id },
-      files: ['content-script.js'],
-    }).then(() => {
-      chrome.scripting.executeScript({
-        target: { tabId: tab.id },
-        func: (mode) => self.decodeBlocks(mode),
-        args: [mode],
-      });
-    }).catch((error) => {
-      console.error("Failed to execute script:", error);
-    });
+    executeDecodeBlocksIfAllowed(tab.id, tab.url, mode);
   }
 }
 
