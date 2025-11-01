@@ -7,19 +7,34 @@ import { executeDecodeBlocksIfAllowed, getModeFromId } from './script-executor.j
 
 /**
  * Initialize context menu items
+ * Handles duplicates by removing existing items first
  */
-function initializeContextMenu() {
-  chrome.contextMenus.create({
-    id: "unstringify-selected",
-    title: "This block",
-    contexts: ["all"],
-  });
+async function initializeContextMenu() {
+  // Remove existing items to avoid duplicates
+  try {
+    await chrome.contextMenus.removeAll();
+  } catch (error) {
+    // Ignore errors if items don't exist
+    console.debug("Context menu removeAll:", error);
+  }
 
-  chrome.contextMenus.create({
-    id: "unstringify-same-class",
-    title: "All similar blocks",
-    contexts: ["all"],
-  });
+  // Create context menu items
+  try {
+    await chrome.contextMenus.create({
+      id: "unstringify-selected",
+      title: "This block",
+      contexts: ["all"],
+    });
+
+    await chrome.contextMenus.create({
+      id: "unstringify-same-class",
+      title: "All similar blocks",
+      contexts: ["all"],
+    });
+  } catch (error) {
+    // Handle errors gracefully (e.g., if menu already exists)
+    console.error("Failed to create context menu:", error);
+  }
 }
 
 /**
@@ -29,15 +44,27 @@ function initializeContextMenu() {
 function updateContextMenuVisibility(tabId) {
   chrome.tabs.get(tabId, (tab) => {
     if (chrome.runtime.lastError) return;
+    if (!tab || !tab.url) return;
     
     const isAllowed = isUrlAllowedForScripting(tab.url);
     
+    // Update with error handling in case menu items don't exist yet
     chrome.contextMenus.update("unstringify-selected", {
       visible: isAllowed
+    }, () => {
+      if (chrome.runtime.lastError) {
+        // Menu item might not exist yet, ignore error
+        console.debug("Context menu update error:", chrome.runtime.lastError.message);
+      }
     });
     
     chrome.contextMenus.update("unstringify-same-class", {
       visible: isAllowed
+    }, () => {
+      if (chrome.runtime.lastError) {
+        // Menu item might not exist yet, ignore error
+        console.debug("Context menu update error:", chrome.runtime.lastError.message);
+      }
     });
   });
 }
