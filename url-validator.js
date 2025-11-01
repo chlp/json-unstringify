@@ -34,7 +34,7 @@ function isUrlAllowedForScripting(url) {
       return false;
     }
     
-    // Allow all other URLs
+    // Allow all other URLs (including file://, http://, https://, data:, etc.)
     return true;
   } catch (e) {
     // If URL parsing fails, allow it (might be a data URL or similar)

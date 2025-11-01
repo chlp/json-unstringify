@@ -2,12 +2,13 @@
   "manifest_version": 3,
   "name": "JSON Unstringify",
   "homepage_url": "https://github.com/chlp/json-unstringify",
-  "version": "0.3",
+  "version": "0.4",
   "description": "Beautifies selected nested JSON by expanding it into readable objects",
   "permissions": ["contextMenus", "activeTab", "scripting"],
   "host_permissions": [
     "http://*/*",
-    "https://*/*"
+    "https://*/*",
+    "file:///*"
   ],
   "background": {
     "service_worker": "background.js",
